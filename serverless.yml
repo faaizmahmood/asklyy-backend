@@ -1,0 +1,37 @@
+service: asklyy-server
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  stage: prod
+  environment:
+    PORT: ${env:PORT}
+    NODE_ENV: ${env:NODE_ENV}
+    IS_SERVERLESS: "true"
+    MONGO_URL: ${env:MONGO_URL}
+    ACCESS_SECRET: ${env:ACCESS_SECRET}
+    REFRESH_SECRET: ${env:REFRESH_SECRET}
+    FRONTEND_URL: ${env:FRONTEND_URL}
+    EMAIL_USER: ${env:EMAIL_USER}
+    EMAIL_PASS: ${env:EMAIL_PASS}
+    EMAIL_SECRET: ${env:EMAIL_SECRET}
+    GEMINI_API_KEY: ${env:GEMINI_API_KEY}
+
+functions:
+  asklyy:
+    handler: server.handler
+    name: asklyy  # <-- Exact AWS Lambda function name
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: ANY
+
+package:
+  exclude:
+    - node_modules/aws-sdk/**
+    - .git/**
+    - .github/**
+    - README.md
+    - .env
+    - tests/**
