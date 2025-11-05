@@ -1,6 +1,6 @@
 (function () {
   const botId = document.currentScript.getAttribute("data-bot-id");
-  const API_BASE = "http://localhost:5000/api/bot"; 
+  const API_BASE = "https://t5u8yd0o9j.execute-api.ap-south-1.amazonaws.com/api/bot"; 
 
   if (!botId) {
     console.error("⚠️ Asklyy widget: Missing bot ID");
